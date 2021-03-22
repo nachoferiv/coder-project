@@ -1,0 +1,21 @@
+<h1 class="display-6">{{title}}</h1>
+{{#if exists}}
+<table class="table">
+  <thead>
+    <th scope="col">Name</th>
+    <th scope="col">Price</th>
+    <th scope="col">Photo</th>
+  </thead>
+  {{#each products}}
+  <tr scope="row">
+    <td>{{this.name}}</td>
+    <td>{{this.price}}</td>
+    <td>
+      <img src="{{this.thumbnail}}" alt="{{this.name}}" class="img-thumbnail resized_image">
+    </td>
+  </tr>
+  {{/each}}
+</table>
+{{else}}
+<h3>No hay productos disponibles</h3>
+{{/if}}
