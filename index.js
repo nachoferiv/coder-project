@@ -1,7 +1,7 @@
 const express = require('express');
 const apiRouter = require('./routes/apiRoutes');
 const viewsRouter = require('./routes/viewsRoutes');
-const handlebars = require('express-handlebars');
+//const handlebars = require('express-handlebars');
 const port = process.env.PORT || 8080;
 
 const allowCrossDomain = function(req, res, next) {
@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 app.set('view engine', 'hbs');
 app.set('views', './views');
 app.use(express.static('public'));
-app.engine(
+/*app.engine(
   'hbs',
   handlebars({
     extname: '.hbs',
@@ -29,7 +29,8 @@ app.engine(
     layoutsDir: __dirname + '/views/layouts',
     partialsDir: __dirname + '/views/partials'
   })
-);
+);*/
+app.set('view engine', 'pug')
 
 app.use('/api', apiRouter);
 app.use('/', viewsRouter);

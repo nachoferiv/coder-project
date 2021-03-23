@@ -1,0 +1,17 @@
+extends ../layouts/index.pug
+block body
+  h1(class="display-6")=title
+  - if (exists == true)
+    table(class="table")
+      thead
+        th(scope="col") Name
+        th(scope="col") Price
+        th(scope="col") Photo
+      each prd in products
+        tr(scope="row")
+          td=prd.name
+          td=prd.price
+          td
+            img(src=prd.thumbnail alt=prd.name class="img-thumbnail resized_image")
+  - else
+    <h3>No hay productos disponibles</h3>

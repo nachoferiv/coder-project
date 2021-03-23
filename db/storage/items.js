@@ -34,5 +34,11 @@
 		"name": "Mochila",
 		"price": "2500",
 		"thumbnail": "https://http2.mlstatic.com/D_NQ_NP_2X_810640-MLA44052561902_112020-F.webp"
+	},
+	{
+		"id": 8,
+		"name": "Cartuchera",
+		"price": "999",
+		"thumbnail": "https://http2.mlstatic.com/D_NQ_NP_2X_850760-MLA31063514812_062019-F.webp"
 	}
 ]
