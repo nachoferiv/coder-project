@@ -1,0 +1,22 @@
+<h1 class="display-6"><%- title %></h1>
+<% if (exists) { %>
+<table class="table">
+  <thead>
+    <th scope="col">Name</th>
+    <th scope="col">Price</th>
+    <th scope="col">Photo</th>
+  </thead>
+  <% for(let p in products) { %>
+  <tr scope="row">
+    <td><%- products[p].name %></td>
+    <td><%- products[p].price %></td>
+    <td>
+      <img src="<%- products[p].thumbnail %>" alt="<%- products[p].name %>" class="img-thumbnail resized_image">
+    </td>
+  </tr>
+  <% } %>
+
+</table>
+<% } else { %>
+<h3>No hay productos disponibles</h3>
+<% } %>

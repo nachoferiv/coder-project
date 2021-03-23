@@ -38,24 +38,28 @@ const postProduct = async(data) => {
   return response.json();
 }
 
+viewsRouter.get('', async(req, res) => {
+    res.render('index')
+});
+
 viewsRouter.get('/products', async(req, res) => {
   await getProducts().then( products => {
     const title = 'Products List';
     const exists = products.length > 0 ? true : false;
-    res.render('./partials/products.hbs', { title, products, exists })
+    res.render('partials/products.ejs', { title, products, exists })
   });
 });
 
 viewsRouter.get('/createProduct', async(req, res) => {
   const title = 'Create Product';
-  res.render('./partials/createProduct.hbs', { title })
+  res.render('partials/createProduct.ejs', { title, status: null})
 });
 
 viewsRouter.post('/createProduct', async(req, res) => {
   await postProduct(req.body).then( status => {
     const title = 'Create Product';
     console.log(status)
-    res.render('./partials/createProduct.hbs', { title, status});
+    res.render('partials/createProduct.ejs', { title, status });
   }).catch(e => console.log(e))
 });
 
