@@ -1,26 +1,37 @@
 const express = require('express');
+const handlebars = require('express-handlebars');
 const apiRouter = require('./routes/apiRoutes');
 const viewsRouter = require('./routes/viewsRoutes');
-const handlebars = require('express-handlebars');
 const port = process.env.PORT || 8080;
+const httpPort = process.env.HTTP_PORT || 3000;
 
 const allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080/productos');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type, Accept,Authorization,Origin");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+  res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 }
 
 const app = express();
 app.use(allowCrossDomain)
+
+const http = require('http').Server(app)
+const io = require('socket.io')(http);
+const ioInitializer = require('./sockets/ioInitializer');
+
+ioInitializer.initialize(io);
+
+
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
 
+
 app.set('view engine', 'hbs');
 app.set('views', './views');
-app.use(express.static('public'));
+app.use(express.static('./public'));
 app.engine(
   'hbs',
   handlebars({
@@ -38,9 +49,8 @@ const server = app.listen(port, () => {
     console.log('Server listening at port: ' + port);
 })
 
-server.on('error', err => {
-    console.log(err)
-});
-
+const htppServer = http.listen(httpPort, () => {
+  console.log('Http server running at port: ' + httpPort);
+})
 
 module.exports = app;
