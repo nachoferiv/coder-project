@@ -40,9 +40,10 @@ const postProduct = async(data) => {
 
 viewsRouter.get('/products', async(req, res) => {
   await getProducts().then( products => {
-    const title = 'Products List';
+    const title = 'Products';
     const exists = products.length > 0 ? true : false;
-    res.render('./partials/products.hbs', { title, products, exists })
+    //res.render('./partials/products.hbs', { title, products, exists })
+    res.render('./partials/productsView.hbs', { title, products, exists });
   });
 });
 

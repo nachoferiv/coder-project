@@ -2,6 +2,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const apiRouter = require('./routes/apiRoutes');
 const viewsRouter = require('./routes/viewsRoutes');
+
 const port = process.env.PORT || 8080;
 const httpPort = process.env.HTTP_PORT || 3000;
 
@@ -21,13 +22,11 @@ const io = require('socket.io')(http);
 const ioInitializer = require('./sockets/ioInitializer');
 
 ioInitializer.initialize(io);
-
-
+app.set('socketio', io);
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
-
 
 app.set('view engine', 'hbs');
 app.set('views', './views');
@@ -49,7 +48,7 @@ const server = app.listen(port, () => {
     console.log('Server listening at port: ' + port);
 })
 
-const htppServer = http.listen(httpPort, () => {
+const httpServer = http.listen(httpPort, () => {
   console.log('Http server running at port: ' + httpPort);
 })
 

@@ -1,5 +1,4 @@
-const express = require('express');
-const apiRouter = express.Router();
+const apiRouter = require('express').Router();
 
 const DALProductos = require('../db/DALProductos');
 const Producto = require('../entities/Producto');
@@ -14,7 +13,7 @@ apiRouter.get('/productos/listar', async (req, res) => {
       res.status(200).json(products);
 });
 
-apiRouter.get('/productos/listar/:id', async (req, res) => {
+apiRouter.get('/productos/listar/:id', async (req, res, next) => {
   const dalProductos = new DALProductos('items.js')
   const products = await dalProductos.read();
   const product = await products.filter(p => p.id == req.params.id);
@@ -50,10 +49,14 @@ apiRouter.post('/productos/guardar', async (req, res) => {
       if (!created) {
         res.status(400).json({error: 'The product already exists'});
         return;
+      } else {
+        const products = await dalProductos.read();
+        req.app.get('socketio').on('connection', socket => {
+          io.sockets.emit('update-items', products);
+        });
+        res.status(200).json({message: "Created!"});
       }
           
-      else
-          res.status(200).json({message: "Created!"});
   } catch (e) {
       res.status(400).json({error: "Whoops! Something went wrong..."});
   }

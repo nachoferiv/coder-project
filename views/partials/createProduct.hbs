@@ -4,7 +4,7 @@
   The product has been created!
 </div>
 {{/if}}
-<form action="/createProduct" enctype="application/x-www-form-urlencoded" method="POST">
+<form action="/createProduct" enctype="application/x-www-form-urlencoded" method="POST" id="create-product-form">
   <div class="form-group">
     <label for="name">Product Name</label>
     <input type="text" class="form-control" name="name" aria-describedby="nameHelp" required>
@@ -22,7 +22,3 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<script>
-  console.log('asd')
-  console.log(status)
-</script>

@@ -34,5 +34,11 @@
 		"name": "Mochila",
 		"price": "2500",
 		"thumbnail": "https://http2.mlstatic.com/D_NQ_NP_2X_810640-MLA44052561902_112020-F.webp"
+	},
+	{
+		"id": 8,
+		"name": "Compas",
+		"price": "199",
+		"thumbnail": "https://http2.mlstatic.com/D_NQ_NP_687697-MLA44003692396_112020-O.webp"
 	}
 ]

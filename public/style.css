@@ -1,3 +1,100 @@
+.welcome-header {
+  position: relative;
+  height: 500px;
+  background: url(img/image-landing-page-2.jpg) no-repeat center;
+  opacity: 0.8;
+  background-size: cover;
+  border-radius: 3px;
+  z-index: -1;
+}
+
+
+.img-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.img-container h1 {
+  font-size: 72px; 
+  letter-spacing: 0.2em;
+  margin: 0;
+}
+
+.img-container h1 span {
+  border: 10px solid white;
+  padding: 6px 14px;
+}
+
+.title-container {
+  background-color: #009879;
+  text-align: center;
+  color:#ffffff;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  font-weight: bold;
+  padding: 5px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  min-width: 400px;
+  margin-top: -10px;
+}
+
+.form-container {
+  padding: 20px 50px;
+}
+
+.form-background {
+  background-color: #f3f3f3;
+  color: 	#585858;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: left;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr{
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  color: 	#585858;
+  font-weight: bold;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
 .resized_image {
   width: 100px;
   height: 100px;
