@@ -44,7 +44,8 @@ class DALProductos {
             fileContent.push(dbProduct)
 
             await fs.promises.writeFile(this.filepath, JSON.stringify(fileContent, null, '\t'))  
-            return true;
+            
+            return product;
 
         } catch(e) {
             console.log(e)

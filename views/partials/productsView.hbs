@@ -1,20 +1,17 @@
-<div class="container">
   <div class="welcome-header">
     <div class="img-container">
       <h1><span>Welcome</span></h1>
     </div>
   </div>
-  
   <div class="title-container"> 
-    <h2 class="display-6">Create Product</h1>
+    <h2>Create Product</h1>
   </div>
-  <div class="form-background">
+  <div class="background">
     <div class="form-container"> 
-      {{#if status}}
-      <div class="alert alert-success" role="alert">
-        The product has been created!
+      <div class="alert alert-success" id="product-create-alert" style="display:none;">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong></strong>
       </div>
-      {{/if}}
       <form action="/createProduct" enctype="application/x-www-form-urlencoded" method="POST" id="create-product-form">
         <div class="form-group">
           <label for="name">Product Name</label>
@@ -35,28 +32,32 @@
       </form>
     </div>
   </div>
-
-
+<div class="title-container"> 
+    <h2>Products</h1>
+</div>
 {{#if exists}}
-<table class="content-table datatable" style="width: 100%;">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Photo</th>
-    </tr>
-  </thead>
-  {{#each products}}
-  <tr scope="row">
-    <td>{{this.name}}</td>
-    <td>{{this.price}}</td>
-    <td>
-      <img src="{{this.thumbnail}}" alt="{{this.name}}" class="img-thumbnail resized_image">
-    </td>
-  </tr>
-{{/each}}
-</table>
-{{else}}
-<h3>No hay productos disponibles</h3>
-{{/if}}
+<div class="table-container">
+  <table id="products-table" class="content-table datatable" style="width: 100%;">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Photo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+      <tr scope="row">
+        <td>{{this.name}}</td>
+        <td>{{this.price}}</td>
+        <td>
+          <img src="{{this.thumbnail}}" alt="{{this.name}}" class="img-thumbnail resized_image">
+        </td>
+      </tr>
+  {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+  <h3>No hay productos disponibles</h3>
+  {{/if}}
 </div>

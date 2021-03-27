@@ -1,5 +1,6 @@
 const apiRouter = require('express').Router();
 
+const { create } = require('express-handlebars');
 const DALProductos = require('../db/DALProductos');
 const Producto = require('../entities/Producto');
 
@@ -44,16 +45,15 @@ apiRouter.post('/productos/guardar', async (req, res) => {
       }
 
       const newProduct = new Producto(null, req.body.name, req.body.price, req.body.thumbnail);
-      const created = await dalProductos.save(newProduct);
+      const createdProduct = await dalProductos.save(newProduct);
 
-      if (!created) {
+      if (!createdProduct) {
         res.status(400).json({error: 'The product already exists'});
         return;
       } else {
-        const products = await dalProductos.read();
-        req.app.get('socketio').on('connection', socket => {
-          io.sockets.emit('update-items', products);
-        });
+        const io = req.app.get('socketio');
+        io.sockets.emit('newproduct', {name: createdProduct.name, price: createdProduct.price, thumbnail:createdProduct.thumbnail});
+
         res.status(200).json({message: "Created!"});
       }
           

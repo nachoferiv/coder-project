@@ -34,7 +34,7 @@ const postProduct = async(data) => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(data)
   });
-  console.log(response)
+
   return response.json();
 }
 
@@ -47,15 +47,9 @@ viewsRouter.get('/products', async(req, res) => {
   });
 });
 
-viewsRouter.get('/createProduct', async(req, res) => {
-  const title = 'Create Product';
-  res.render('./partials/createProduct.hbs', { title })
-});
-
 viewsRouter.post('/createProduct', async(req, res) => {
   await postProduct(req.body).then( status => {
     const title = 'Create Product';
-    console.log(status)
     res.render('./partials/createProduct.hbs', { title, status});
   }).catch(e => console.log(e))
 });

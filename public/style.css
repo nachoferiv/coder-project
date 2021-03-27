@@ -38,26 +38,36 @@
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   font-weight: bold;
-  padding: 5px 0;
+  padding: 7px 0 7px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   min-width: 400px;
   margin-top: -10px;
 }
 
+.title-container h2 {
+  font-size: 30px;
+}
+
 .form-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  min-width: 500px;
   padding: 20px 50px;
 }
 
-.form-background {
+.background {
   background-color: #f3f3f3;
   color: 	#585858;
   border-radius: 5px;
   overflow: hidden;
-  text-align: left;
   font-weight: bold;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+.table-container {
+  margin: 20px;
+}
 
 .content-table {
   border-collapse: collapse;
@@ -67,12 +77,13 @@
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
 
 .content-table thead tr{
   background-color: #009879;
+  opacity: 0.8;
   color: #ffffff;
-  text-align: left;
   font-weight: bold;
 }
 
