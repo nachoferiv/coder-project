@@ -19,10 +19,9 @@ app.use(allowCrossDomain)
 
 const http = require('http').Server(app)
 const io = require('socket.io')(http);
-const ioInitializer = require('./sockets/ioInitializer');
 
-ioInitializer.initialize(io);
 app.set('socketio', io);
+apiRouter.setProductsListEvent(io);
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false

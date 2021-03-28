@@ -1,26 +1,32 @@
-<script id="products-list" type="text/x-handlebars-template">
-<div class="container mb-3 mt-3">
-  {{#if exists}}
-<table class="table table-striped table-bordered datatable" style="width: 100%;">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Photo</th>
-    </tr>
-  </thead>
-  {{#each products}}
-  <tr scope="row">
-    <td>{{this.name}}</td>
-    <td>{{this.price}}</td>
-    <td>
-      <img src="{{this.thumbnail}}" alt="{{this.name}}" class="img-thumbnail resized_image">
-    </td>
-  </tr>
-  {{/each}}
-</table>
-{{else}}
-<h3>No hay productos disponibles</h3>
-{{/if}}
+<div class="title-container"> 
+    <h2>Products</h1>
 </div>
+<div class="table-container">
+  
+</div>
+<script id="products-template" type="text/x-handlebars-template">
+      \{{#if context.exists}}
+        <table id="products-table" class="content-table datatable" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Photo</th>
+          </tr>
+        </thead>
+        <tbody>
+          \{{#each context.products}}
+          <tr scope="row">
+            <td>\{{this.name}}</td>
+            <td>\{{this.price}}</td>
+            <td>
+              <img src="\{{this.thumbnail}}" alt="\{{this.name}}" class="img-thumbnail resized_image">
+            </td>
+          </tr>
+          \{{/each}}
+        </tbody>
+      </table>
+    \{{else}}
+      <h3>No hay productos disponibles</h3>
+    \{{/if}}
 </script>

@@ -1,24 +1,29 @@
-<h1 class="display-6">{{title}}</h1>
-{{#if status}}
-<div class="alert alert-success" role="alert">
-  The product has been created!
+<div class="title-container"> 
+    <h2>Create Product</h1>
 </div>
-{{/if}}
-<form action="/createProduct" enctype="application/x-www-form-urlencoded" method="POST" id="create-product-form">
-  <div class="form-group">
-    <label for="name">Product Name</label>
-    <input type="text" class="form-control" name="name" aria-describedby="nameHelp" required>
-    <small id="nameHelp" class="form-text text-muted">Complete the name of the product.</small>
+  <div class="background">
+    <div class="form-container"> 
+      <div class="alert alert-success" id="product-create-alert" style="display:none;">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong></strong>
+      </div>
+      <form action="/createProduct" enctype="application/x-www-form-urlencoded" method="POST" id="create-product-form">
+        <div class="form-group">
+          <label for="name">Product Name</label>
+          <input type="text" class="form-control" name="name" aria-describedby="nameHelp" required>
+          <small id="nameHelp" class="form-text text-muted">Complete the name of the product.</small>
+        </div>
+        <div class="form-group">
+          <label for="price">Product Price</label>
+          <input type="text" class="form-control" name="price" aria-describedby="priceHelp" required>
+          <small id="priceHelp" class="form-text text-muted">Complete the price of the product (without $ simbol).</small>
+        </div>
+        <div class="form-group">
+          <label for="thumbnail">Product Image</label>
+          <input type="text" class="form-control" name="thumbnail" aria-describedby="thumbnailHelp" required>
+          <small id="thumbnailHelp" class="form-text text-muted">Complete the url of the image of product.</small>
+        </div>
+        <button type="submit" class="btn btn-dark">Create</button>
+      </form>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="price">Product Price</label>
-    <input type="text" class="form-control" name="price" aria-describedby="priceHelp" required>
-    <small id="priceHelp" class="form-text text-muted">Complete the price of the product (without $ simbol).</small>
-  </div>
-  <div class="form-group">
-    <label for="thumbnail">Product Image</label>
-    <input type="text" class="form-control" name="thumbnail" aria-describedby="thumbnailHelp" required>
-    <small id="thumbnailHelp" class="form-text text-muted">Complete the url of the image of product.</small>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>

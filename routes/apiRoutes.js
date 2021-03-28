@@ -1,8 +1,13 @@
 const apiRouter = require('express').Router();
-
-const { create } = require('express-handlebars');
 const DALProductos = require('../db/DALProductos');
 const Producto = require('../entities/Producto');
+
+apiRouter.setProductsListEvent = io =>{
+  io.on('connection', async socket => {
+    const dalProductos = new DALProductos('items.js');
+    socket.emit('productsList', await dalProductos.read());
+  });
+}
 
 apiRouter.get('/productos/listar', async (req, res) => {
   const dalProductos = new DALProductos('items.js')

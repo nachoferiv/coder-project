@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    $('.datatable').DataTable();
-
     var form = $("#create-product-form");
 
     form.submit((e) => {
@@ -18,8 +16,21 @@ $(document).ready(function() {
     var socket = io('http://localhost:3000/');
 
     socket.on('newproduct', newProduct => {
-    $('#products-table tr:last').after('<tr scope="row"><td>' + newProduct.name + '</td><td>' + newProduct.price + '</td><td><img src="' + newProduct.thumbnail + '" alt="' + newProduct.name + '" class="img-thumbnail resized_image"></td></tr>');
-})
+    $('#products-table tr:last').after(`<tr scope="row"><td>${newProduct.name}</td><td>${newProduct.price}</td><td><img src="${newProduct.thumbnail}" alt="${newProduct.name}" class="img-thumbnail resized_image"></td></tr>`);
+    });
+
+    socket.on('productsList', products => {
+        var productsTemplate = $('#products-template').html()
+        var compiledProductsTemplate = Handlebars.compile(productsTemplate);
+        var context = {
+            "products": products,
+            "exists": products.length > 0 
+        }
+
+        var tableContainer = $('.table-container');
+        tableContainer.html(compiledProductsTemplate({context}));
+        $('.datatable').DataTable();
+    })
 
     
 function createProduct(data){
