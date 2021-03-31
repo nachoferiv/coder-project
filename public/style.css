@@ -111,3 +111,39 @@
   width: 100px;
   height: 100px;
 }
+
+.chatMessagesContainer {
+  width: 50%;
+  min-width: 300px;
+  margin: 10px auto;
+}
+.chatMessagesList {
+  text-align: left;
+  text-decoration: none;
+  background-color: white;
+  border-radius: 5px;
+  list-style-type: none;
+  padding: 100
+  px;
+}
+
+.msgUploadDate{
+  font-weight: bold;
+  margin: 0 10px 0 0;
+  color: black;
+  width: 20%;
+}
+
+.msgEmail {
+  color:dodgerblue;
+  width: 20%;
+}
+
+.msgMessage {
+  width: 60%;
+  font-weight: 200;
+}
+
+.chat-form-container {
+  background-color: #f3f3f3;
+}

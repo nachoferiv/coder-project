@@ -22,6 +22,8 @@ const io = require('socket.io')(http);
 
 app.set('socketio', io);
 apiRouter.setProductsListEvent(io);
+apiRouter.setChatMessagesListEvent(io);
+
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false

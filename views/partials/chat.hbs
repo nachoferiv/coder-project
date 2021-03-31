@@ -1,0 +1,56 @@
+<div class="title-container"> 
+    <h2>Questions & Answers</h1>
+</div>
+<div class="chat-container background">
+
+</div>
+</div>
+<script id="chatMessages-template" type="text/x-handlebars-template">
+        <div class="chatMessagesContainer">
+            \{{#if context.chatMessages}}
+            <table class="chatDatatable chatMessagesList" style="width: 100%;">
+                <thead>
+                <tr>
+                    <th>Upload Date</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                    \{{#each context.chatMessages}} 
+                    <tr scope="row">
+                        <td class="msgUploadDate">\{{this.uploadDate}}</td>
+                        <td class="msgEmail">\{{this.email}}</td>
+                        <td class="msgMessage">\{{this.message}}</td>
+                    </tr>
+                    \{{/each}}
+                </tbody>
+            </table>
+            \{{else}}
+            <h3>There is no messages available</h3>
+            \{{/if}}
+        </div>
+</script>
+
+<div class="chat-form-container">
+    <div class="form-container">
+        <div class="alert alert-success" id="message-create-alert" style="display:none;">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong></strong>
+        </div>
+        <h2>Ask to the seller</h2>
+                <form action="/sendMessage" enctype="application/x-www-form-urlencoded" method="POST" id="create-message-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+                        <small id="emailHelp" class="form-text text-muted">Complete your email.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <input type="text" class="form-control" name="message" aria-describedby="messageHelp" required>
+                        <small id="messageHelp" class="form-text text-muted">Complete your message to the seller.</small>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Send</button>
+                </form>
+        </div>
+</div>

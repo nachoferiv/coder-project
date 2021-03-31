@@ -1,6 +1,7 @@
 const apiRouter = require('express').Router();
 const DALProductos = require('../db/DALProductos');
 const Producto = require('../entities/Producto');
+const chatMessageController = new (require('../controller/ChatMessageController'))();
 
 apiRouter.setProductsListEvent = io =>{
   io.on('connection', async socket => {
@@ -8,6 +9,8 @@ apiRouter.setProductsListEvent = io =>{
     socket.emit('productsList', await dalProductos.read());
   });
 }
+
+apiRouter.setChatMessagesListEvent = io => chatMessageController.setChatMessagesListEvent(io);
 
 apiRouter.get('/productos/listar', async (req, res) => {
   const dalProductos = new DALProductos('items.js')
@@ -120,6 +123,15 @@ try {
   console.log(e)
     res.status(400).json({error: "Whoops! Something went wrong..."});
 }
+});
+
+apiRouter.get('/chatMessages', async (req, res) => {
+  const chatMessages = await chatMessageController.getAll();
+  
+  if (chatMessages.length == 0)
+      res.status(404).json({error: 'Messages not found'});
+  else 
+      res.status(200).json(chatMessages);
 });
 
 module.exports = apiRouter;
