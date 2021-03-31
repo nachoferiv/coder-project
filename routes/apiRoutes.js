@@ -7,6 +7,42 @@ apiRouter.setProductsListEvent = io =>{
   io.on('connection', async socket => {
     const dalProductos = new DALProductos('items.js');
     socket.emit('productsList', await dalProductos.read());
+
+    socket.on('newProduct', async data => {
+      try {
+        const dalProductos = new DALProductos('items.js')
+  
+        if(!data.name) {
+          socket.emit('productCreatedResponse', {error: 'Product must have a name'});
+          return;
+        }
+  
+        if(!data.price) {
+          socket.emit('productCreatedResponse', {error: 'Product must have a price.'});
+          return;
+        }
+  
+        if(!data.thumbnail) {
+          socket.emit('productCreatedResponse', {error: 'Product must have a thumbnail.'});
+          return;
+        }
+  
+        const newProduct = new Producto(null, data.name, data.price, data.thumbnail);
+        const createdProduct = await dalProductos.save(newProduct);
+  
+        if (!createdProduct) {
+          socket.emit('productCreatedResponse', {'error': 'The product already exists'});
+          return;
+        } else {
+          socket.emit('productCreatedResponse', {'success': 'Product Created!'});
+          io.sockets.emit('newproduct', {name: createdProduct.name, price: createdProduct.price, thumbnail:createdProduct.thumbnail});
+        }
+            
+    } catch (e) {
+      console.log(e)
+        
+    }
+    });
   });
 }
 

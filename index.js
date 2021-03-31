@@ -1,10 +1,11 @@
+const path = require('path')
 const express = require('express');
 const handlebars = require('express-handlebars');
 const apiRouter = require('./routes/apiRoutes');
 const viewsRouter = require('./routes/viewsRoutes');
 
-const port = process.env.PORT || 8080;
-const httpPort = process.env.HTTP_PORT || 3000;
+//const port = process.env.PORT || 8080;
+const httpPort = process.env.PORT || 3000;
 
 const allowCrossDomain = function(req, res, next) {
   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type, Accept,Authorization,Origin");
@@ -14,16 +15,18 @@ const allowCrossDomain = function(req, res, next) {
   next();
 }
 
+const publicPath = path.join(__dirname, '../public')
+
 const app = express();
 app.use(allowCrossDomain)
 
-const http = require('http').Server(app)
+const http = require('http').createServer(app)
 const io = require('socket.io')(http);
 
 app.set('socketio', io);
 apiRouter.setProductsListEvent(io);
 apiRouter.setChatMessagesListEvent(io);
-
+app.use(express.static(publicPath))
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
@@ -44,10 +47,6 @@ app.engine(
 
 app.use('/api', apiRouter);
 app.use('/', viewsRouter);
-
-const server = app.listen(port, () => {
-    console.log('Server listening at port: ' + port);
-})
 
 const httpServer = http.listen(httpPort, () => {
   console.log('Http server running at port: ' + httpPort);
