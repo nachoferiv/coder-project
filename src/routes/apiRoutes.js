@@ -5,12 +5,12 @@ const chatMessageController = new (require('../controller/ChatMessageController'
 
 apiRouter.setProductsListEvent = io =>{
   io.on('connection', async socket => {
-    const dalProductos = new DALProductos('items.js');
+    const dalProductos = new DALProductos('items.json');
     socket.emit('productsList', await dalProductos.read());
 
     socket.on('newProduct', async data => {
       try {
-        const dalProductos = new DALProductos('items.js')
+        const dalProductos = new DALProductos('items.json')
   
         if(!data.name) {
           socket.emit('productCreatedResponse', {error: 'Product must have a name'});
@@ -49,7 +49,7 @@ apiRouter.setProductsListEvent = io =>{
 apiRouter.setChatMessagesListEvent = io => chatMessageController.setChatMessagesListEvent(io);
 
 apiRouter.get('/productos/listar', async (req, res) => {
-  const dalProductos = new DALProductos('items.js')
+  const dalProductos = new DALProductos('items.json')
   const products = await dalProductos.read();
 
   if (products.length == 0)
@@ -59,7 +59,7 @@ apiRouter.get('/productos/listar', async (req, res) => {
 });
 
 apiRouter.get('/productos/listar/:id', async (req, res, next) => {
-  const dalProductos = new DALProductos('items.js')
+  const dalProductos = new DALProductos('items.json')
   const products = await dalProductos.read();
   const product = await products.filter(p => p.id == req.params.id);
 
@@ -71,7 +71,7 @@ apiRouter.get('/productos/listar/:id', async (req, res, next) => {
 
 apiRouter.post('/productos/guardar', async (req, res) => {
   try {
-      const dalProductos = new DALProductos('items.js')
+      const dalProductos = new DALProductos('items.json')
 
       if(!req.body.name) {
         res.status(400).json({error: 'Product must have a title.'});
@@ -108,7 +108,7 @@ apiRouter.post('/productos/guardar', async (req, res) => {
 
 apiRouter.put('/productos/actualizar/:id', async (req, res) => {
 try {
-    const dalProductos = new DALProductos('items.js')
+    const dalProductos = new DALProductos('items.json')
 
     if(!req.body.name) {
       res.status(400).json({error: 'Product must have a title.'});
@@ -144,7 +144,7 @@ try {
 
 apiRouter.delete('/productos/borrar/:id', async (req, res) => {
 try {
-    const dalProductos = new DALProductos('items.js')
+    const dalProductos = new DALProductos('items.json')
     const productId = Number(req.params.id);
     const status = await dalProductos.delete(productId);
 

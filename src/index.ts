@@ -1,27 +1,27 @@
-const path = require('path')
-const express = require('express');
+import path from 'path';
+import express, { Application, Request, Response, NextFunction } from 'express';
+import http from 'http';
 const handlebars = require('express-handlebars');
 const apiRouter = require('./routes/apiRoutes');
 const viewsRouter = require('./routes/viewsRoutes');
 
-//const port = process.env.PORT || 8080;
-const httpPort = process.env.PORT || 3000;
+const httpPort: number = Number(process.env.PORT) || 3000;
 
-const allowCrossDomain = function(req, res, next) {
+const allowCrossDomain = function(req: Request, res: Response, next: NextFunction) {
   res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type, Accept,Authorization,Origin");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-  res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 }
 
-const publicPath = path.join(__dirname, '../public')
+const publicPath: string = path.join(__dirname, '../public')
 
-const app = express();
+const app: Application = express();
 app.use(allowCrossDomain)
 
-const http = require('http').createServer(app)
-const io = require('socket.io')(http);
+const httpServer = http.createServer(app)
+
+const io = require('socket.io')(httpServer);
 
 app.set('socketio', io);
 apiRouter.setProductsListEvent(io);
@@ -34,7 +34,7 @@ app.use(express.urlencoded({
 
 app.set('view engine', 'hbs');
 app.set('views', './views');
-app.use(express.static('./public'));
+app.use(express.static(__dirname + '/public'));
 app.engine(
   'hbs',
   handlebars({
@@ -48,7 +48,7 @@ app.engine(
 app.use('/api', apiRouter);
 app.use('/', viewsRouter);
 
-const httpServer = http.listen(httpPort, () => {
+const httpServerInit = httpServer.listen(httpPort, () => {
   console.log('Http server running at port: ' + httpPort);
 })
 

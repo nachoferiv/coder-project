@@ -7,18 +7,18 @@ class ChatMessageController {
         this.db = new DALChatMessages();
     }
 
-    getAll = async() => {
+    async getAll() {
         const rawData = await this.db.read();
         const chatMessages = rawData.map( m => new ChatMessage(m.email, m.message, m.uploadDate));
 
         return chatMessages;
     }
 
-    create = (chatMessage) => {
+    create(chatMessage) {
         return this.db.save(chatMessage);
     }
 
-    setChatMessagesListEvent = io => {
+    setChatMessagesListEvent(io) {
         io.on('connection', async socket => {
           const chatMessages = await this.getAll();
           socket.join('chat');

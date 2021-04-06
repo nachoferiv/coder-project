@@ -3,21 +3,21 @@ const path = require("path");
 
 class DALChatMessages {
     constructor() {
-        this.filepath = path.resolve(__dirname, `./storage/chatMessages.js`);
+        this.filepath = path.resolve(__dirname, `./storage/chatMessages.json`);
     };
 
-    read = async function () {
+    async read() {
         try {
             const chatMessagesJSON = await fs.promises.readFile(this.filepath);
             const rawChatMessages = JSON.parse(chatMessagesJSON.toString());
 
             return rawChatMessages;
-        } catch {
+        } catch(e) {
             return [];
         }
     }
 
-    save = async function (chatMessage) {
+    async save(chatMessage) {
         try {
             const fileContent = await this.read();
             const latestObj = fileContent.reduce((prev, curr) => {

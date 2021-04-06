@@ -7,7 +7,7 @@ class DALProductos {
         this.filepath = path.resolve(__dirname, `./storage/${filename}`);
     };
 
-    read = async function () {
+    async read() {
         try {
             
             const a = await fs.promises.readFile(this.filepath);
@@ -16,12 +16,12 @@ class DALProductos {
 
             return productos;
 
-        } catch {
+        } catch(e) {
             return [];
         }
     }
 
-    save = async function (product) {
+    async save(product) {
         try {
             const fileContent = await this.read();
             const latestObj = fileContent.reduce((prev, curr) => {
@@ -53,7 +53,7 @@ class DALProductos {
         }
     }
 
-    update = async function (product) {
+    async update(product) {
         try {
             const fileContent = await this.read();
             const exists = fileContent.filter( p => p.id === product.id);
@@ -77,7 +77,7 @@ class DALProductos {
         }
     }
 
-    delete = async function (productId) {
+    async delete(productId) {
        try {
         const fileContent = await this.read();
         const productToDelete = fileContent.filter( p => p.id === productId);

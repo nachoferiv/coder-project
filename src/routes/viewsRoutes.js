@@ -2,6 +2,7 @@ const fetch = require("node-fetch");
 const express = require('express');
 const viewsRouter = express.Router();
 const apiRouter = require('./apiRoutes');
+import path from 'path';
 
 const getProducts = async() => {
   const response =  await fetch("http://localhost:8080/api/productos/listar",{
@@ -21,7 +22,7 @@ const getProducts = async() => {
 }
 
 viewsRouter.get('/products', async(req, res) => {
-  res.render('./partials/productsView.hbs');
+  res.render(path.join(__dirname,'../views/partials/productsView.hbs'));
 });
 
 module.exports = viewsRouter;

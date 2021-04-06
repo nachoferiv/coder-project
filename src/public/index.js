@@ -46,9 +46,9 @@ socket.on('newMessage', chatMessages => {
 });
 
 socket.on('productCreatedResponse', status => {
-    if (status?.error)
+    if (status.hasOwnProperty('error'))
         showAlert("#product-create-alert", status.error, "error");
-    if (status?.success)
+    if (status.hasOwnProperty('status'))
         showAlert("#product-create-alert", status.success, "success");
 });
 
